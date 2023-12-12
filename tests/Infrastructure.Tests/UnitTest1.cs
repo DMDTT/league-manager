@@ -5,8 +5,13 @@ namespace Infrastructure.Tests;
 public class UnitTest1 : TestBase
 {
     [Fact]
-    public void Test1()
+    public void ContextTest()
     {
-        Assert.True(new LeagueManagerContext().Leagues.Where(x => x.Id > 0).Count() > 0);
+        var league = Context.Leagues.FirstOrDefault();
+        Assert.Multiple(() =>
+        {
+            Assert.NotNull(league);
+            Assert.Equal(3, league.GameDays.Count);
+        });
     }
 }
