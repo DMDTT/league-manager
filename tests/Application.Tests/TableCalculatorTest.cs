@@ -1,26 +1,60 @@
-using Entities.Entities;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Entities.Entities;
+using Entities.Services;
 
-namespace Infrastructure.Tests;
-
-public abstract class TestBase
+namespace Application.Tests;
+public class TableCalculatorTest
 {
-    protected LeagueManagerContext Context { get; set; }
-    protected TestBase()
+    [Fact]
+    public void Should_Return_Correct_Table()
     {
+        var league = GetLeague();
+        var result = new TableCalculator().Get(league, league.GameDays.Count);
+        Assert.NotNull(result);
+        Assert.Multiple(
+            () => { Assert.Equal("Madrid", result.Positions[0].Team.Code); }, 
+            () => { Assert.Equal(14, result.Positions[0].Points); },
+            () => { Assert.Equal(15, result.Positions[0].Goals); },
+            () => { Assert.Equal(5, result.Positions[0].GoalsAgainst); },
+            () => { Assert.Equal(4, result.Positions[0].Wins); },
+            () => { Assert.Equal(2, result.Positions[0].Draws); },
+            () => { Assert.Equal(0, result.Positions[0].Losses); },
 
-        Context = new LeagueManagerContext();
-        Context.Database.Migrate();
-        Context.Database.EnsureCreated();
-        Context.Leagues?.RemoveRange(Context.Leagues);
-        Context.Teams?.RemoveRange(Context.Teams);
+            () => { Assert.Equal("Barcelona", result.Positions[1].Team.Code); },
+            () => { Assert.Equal(10, result.Positions[1].Points); },
+            () => { Assert.Equal(14, result.Positions[1].Goals); },
+            () => { Assert.Equal(11, result.Positions[1].GoalsAgainst); },
+            () => { Assert.Equal(3, result.Positions[1].Wins); },
+            () => { Assert.Equal(1, result.Positions[1].Draws); },
+            () => { Assert.Equal(2, result.Positions[1].Losses); },
+
+            () => { Assert.Equal("Valencia", result.Positions[2].Team.Code); },
+            () => { Assert.Equal(7, result.Positions[2].Points); },
+            () => { Assert.Equal(9, result.Positions[2].Goals); },
+            () => { Assert.Equal(9, result.Positions[2].GoalsAgainst); },
+            () => { Assert.Equal(2, result.Positions[2].Wins); },
+            () => { Assert.Equal(1, result.Positions[2].Draws); },
+            () => { Assert.Equal(3, result.Positions[2].Losses); },
+
+            () => { Assert.Equal("Villareal", result.Positions[3].Team.Code); },
+            () => { Assert.Equal(2, result.Positions[3].Points); },
+            () => { Assert.Equal(5, result.Positions[3].Goals); },
+            () => { Assert.Equal(18, result.Positions[3].GoalsAgainst); },
+            () => { Assert.Equal(0, result.Positions[3].Wins); },
+            () => { Assert.Equal(2, result.Positions[3].Draws); },
+            () => { Assert.Equal(4, result.Positions[3].Losses); }
+            );
+    }
+
+    private League GetLeague()
+    {
+        var league = new League();
         var barcelona = new Team()
         {
             Code = "Barcelona",
         };
-        
-        var madrid = new Team {
+
+        var madrid = new Team
+        {
             Code = "Madrid",
         };
 
@@ -34,12 +68,6 @@ public abstract class TestBase
             Code = "Villareal",
         };
 
-        var league = new League();
-        league.Teams.Add(barcelona);
-        league.Teams.Add(madrid);
-        league.Teams.Add(valencia);
-        league.Teams.Add(villareal);
-        
         GameDay gameDay1 = new GameDay()
         {
             Day = 1,
@@ -51,8 +79,8 @@ public abstract class TestBase
             Home = barcelona,
             Away = madrid,
             GameDay = gameDay1,
-            GoalsHome = 1,
-            GoalsAway = 2
+            GoalsHome = 1,  
+            GoalsAway = 2   
         });
 
         gameDay1.Matches.Add(new Match()
@@ -191,8 +219,6 @@ public abstract class TestBase
         league.GameDays?.Add(gameDay5);
         league.GameDays?.Add(gameDay6);
 
-        Context.Leagues?.Add(league);
-
-        Context.SaveChanges();
+        return league;
     }
 }

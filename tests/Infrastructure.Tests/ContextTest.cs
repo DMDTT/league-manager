@@ -2,16 +2,16 @@ using Infrastructure.Data;
 
 namespace Infrastructure.Tests;
 
-public class UnitTest1 : TestBase
+public class ContextTest : TestBase
 {
     [Fact]
-    public void ContextTest()
+    public void Test_Mappings()
     {
         var league = Context.Leagues.FirstOrDefault();
         Assert.Multiple(() =>
         {
             Assert.NotNull(league);
-            Assert.Equal(3, league.GameDays.Count);
+            Assert.Equal(6, league.GameDays.Count);
         });
     }
 }
