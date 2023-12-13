@@ -5,52 +5,42 @@ public class TableCalculator
 {
     public Table Get(League league, int upToGameDay)
     {
-        Dictionary<Team, TablePosition> positions = new Dictionary<Team, TablePosition>();
+        Dictionary<Team, TeamContainer> positions = new Dictionary<Team, TeamContainer>();
         for (int i = 0; i < upToGameDay; i++)
         {
             GameDay gameDay = league.GameDays[i];
             foreach (var gameDayMatch in gameDay.Matches)
             {
-                if (!positions.TryGetValue(gameDayMatch.Home, out TablePosition homePosition))
-                {
-                    positions.TryAdd(gameDayMatch.Home, new TablePosition { Team = gameDayMatch.Home });
-                    positions.TryGetValue(gameDayMatch.Home, out homePosition!);
-                }
+                var homeTeam = GetPosition(positions, gameDayMatch, x => x.Home);
+                var awayTeam = GetPosition(positions, gameDayMatch, x => x.Away);
 
-                if (!positions.TryGetValue(gameDayMatch.Away, out TablePosition awayPosition))
-                {
-                    positions.TryAdd(gameDayMatch.Away, new TablePosition { Team = gameDayMatch.Away });
-                    positions.TryGetValue(gameDayMatch.Away, out awayPosition!);
-                }
-
-                homePosition.Goals += gameDayMatch.GoalsHome;
-                homePosition.GoalsAgainst += gameDayMatch.GoalsAway;
+                homeTeam.Goals += gameDayMatch.GoalsHome;
+                homeTeam.GoalsAgainst += gameDayMatch.GoalsAway;
                 
-                awayPosition.Goals += gameDayMatch.GoalsAway;
-                awayPosition.GoalsAgainst += gameDayMatch.GoalsHome;
+                awayTeam.Goals += gameDayMatch.GoalsAway;
+                awayTeam.GoalsAgainst += gameDayMatch.GoalsHome;
 
                 if (gameDayMatch.GoalsHome > gameDayMatch.GoalsAway)
                 {
-                    homePosition.Wins++;
-                    homePosition.Points += 3;
-
-                    awayPosition.Losses++;
+                    homeTeam.Wins++;
+                    homeTeam.Points += 3;
+                    awayTeam.Losses++;
                 }
 
                 if (gameDayMatch.GoalsHome < gameDayMatch.GoalsAway)
                 {
-                    awayPosition.Points += 3;
-                    awayPosition.Wins++;
+                    awayTeam.Points += 3;
+                    awayTeam.Wins++;
 
-                    homePosition.Losses++;
+                    homeTeam.Losses++;
                 }
 
                 if (gameDayMatch.GoalsHome == gameDayMatch.GoalsAway)
                 {
-                    homePosition.Points += 1;
-                    awayPosition.Points += 1;
-                    homePosition.Draws++;
-                    awayPosition.Draws++;
+                    homeTeam.Points += 1;
+                    awayTeam.Points += 1;
+                    homeTeam.Draws++;
+                    awayTeam.Draws++;
                 }
             }
         }
@@ -60,10 +50,24 @@ public class TableCalculator
             .ThenBy(x => x.Value.Goals - x.Value.GoalsAgainst)
             .ToDictionary();
 
-        foreach (KeyValuePair<Team, TablePosition> tablePosition in positions)
+        foreach (KeyValuePair<Team, TeamContainer> tablePosition in positions)
         {
         }
         
-        return new Table() { Positions = positions.Select(x => x.Value).ToList() };
+        return new Table() { Teams = positions.Select(x => x.Value).ToList() };
+    }
+
+    private static TeamContainer GetPosition(Dictionary<Team, TeamContainer> positions, Match match, Func<Match, Team> getTeam)
+    {
+        var team = getTeam(match);
+        if (positions.TryGetValue(team, out TeamContainer position))
+        {
+            return position;
+        }
+        
+        positions.TryAdd(team, new TeamContainer { Team = getTeam(match) });
+        positions.TryGetValue(team, out position!);
+
+        return position;
     }
 }

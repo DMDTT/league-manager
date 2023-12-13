@@ -1,5 +1,5 @@
 ﻿namespace Entities.Entities;
-public class TablePosition
+public class TeamContainer
 {
     public int Position { get; set; }
     public int Goals { get; set; }
