@@ -1,0 +1,13 @@
+@page "/leagues/load"
+@model RazorApp.Pages.League.Load.Index
+
+<div class="text-center">
+    <h1 class="display-4">Ligen</h1>
+    @foreach (var league in Model.Leagues)
+    {
+        <div class="form-group">
+            <label for="title">Titel</label>
+            <input type="text" class="form-control" id="title" aria-describedby="Title of league" asp-for="@league.Title">
+        </div>
+    }
+</div>

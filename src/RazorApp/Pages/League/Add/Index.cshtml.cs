@@ -1,10 +1,9 @@
 using Entities.CQRS.Commands;
-using Entities.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace RazorApp.Pages.League.New;
+namespace RazorApp.Pages.League.Add;
 
 public class Index : PageModel
 {

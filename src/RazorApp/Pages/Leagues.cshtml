@@ -1,4 +1,4 @@
-@page
+@page "/leagues"
 @model RazorApp.Pages.Leagues
 
 @{
@@ -7,7 +7,8 @@
 
 <div class="text-center">
     <h1 class="display-4">Ligen</h1>
-    <p><a class="nav-link text-dark" asp-area="" asp-page="./League/New/Index">Liga erstellen</a></p>
-    <p><a class="nav-link text-dark" asp-area="" asp-page="/League/Create/Index">Liga laden</a></p>
+    <p><a class="nav-link text-dark" asp-area="" asp-page="/leagues/add/index">Liga erstellen</a></p>
+    <p><a class="nav-link text-dark" asp-page="/League/load/Index">Liga laden</a></p>
+    <p><a class="nav-link text-dark" asp-page="/League/Load/Index">Liga laden</a></p>
     <p><a class="nav-link text-dark" asp-area="" asp-page="/League/Import/Index">Liga importieren</a></p>
 </div>
