@@ -17,7 +17,7 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("Entities.Entities.GameDay", b =>
+            modelBuilder.Entity("Application.Entities.GameDay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,18 +36,22 @@ namespace Infrastructure.Migrations
                     b.ToTable("GameDays");
                 });
 
-            modelBuilder.Entity("Entities.Entities.League", b =>
+            modelBuilder.Entity("Application.Entities.League", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Leagues");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Match", b =>
+            modelBuilder.Entity("Application.Entities.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +83,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Matches");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Team", b =>
+            modelBuilder.Entity("Application.Entities.Team", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,9 +103,9 @@ namespace Infrastructure.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("Entities.Entities.GameDay", b =>
+            modelBuilder.Entity("Application.Entities.GameDay", b =>
                 {
-                    b.HasOne("Entities.Entities.League", "League")
+                    b.HasOne("Application.Entities.League", "League")
                         .WithMany("GameDays")
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -110,21 +114,21 @@ namespace Infrastructure.Migrations
                     b.Navigation("League");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Match", b =>
+            modelBuilder.Entity("Application.Entities.Match", b =>
                 {
-                    b.HasOne("Entities.Entities.Team", "Away")
+                    b.HasOne("Application.Entities.Team", "Away")
                         .WithMany()
                         .HasForeignKey("AwayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Entities.GameDay", "GameDay")
+                    b.HasOne("Application.Entities.GameDay", "GameDay")
                         .WithMany("Matches")
                         .HasForeignKey("GameDayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Entities.Team", "Home")
+                    b.HasOne("Application.Entities.Team", "Home")
                         .WithMany()
                         .HasForeignKey("HomeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -137,19 +141,19 @@ namespace Infrastructure.Migrations
                     b.Navigation("Home");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Team", b =>
+            modelBuilder.Entity("Application.Entities.Team", b =>
                 {
-                    b.HasOne("Entities.Entities.League", null)
+                    b.HasOne("Application.Entities.League", null)
                         .WithMany("Teams")
                         .HasForeignKey("LeagueId");
                 });
 
-            modelBuilder.Entity("Entities.Entities.GameDay", b =>
+            modelBuilder.Entity("Application.Entities.GameDay", b =>
                 {
                     b.Navigation("Matches");
                 });
 
-            modelBuilder.Entity("Entities.Entities.League", b =>
+            modelBuilder.Entity("Application.Entities.League", b =>
                 {
                     b.Navigation("GameDays");
 

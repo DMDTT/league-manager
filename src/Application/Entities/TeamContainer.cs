@@ -1,4 +1,6 @@
-﻿namespace Entities.Entities;
+﻿using Application.Entities;
+
+namespace Entities.Entities;
 public class TeamContainer
 {
     public int Position { get; set; }

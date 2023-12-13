@@ -8,7 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="CQRS\Commands\League\" />
+      <Folder Include="CQRS\Handlers\League\" />
       <Folder Include="Interfaces\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application.Entities\Application.Entities.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

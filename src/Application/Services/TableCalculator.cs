@@ -1,4 +1,5 @@
-﻿using Entities.Entities;
+﻿using Application.Entities;
+using Entities.Entities;
 
 namespace Entities.Services;
 public class TableCalculator

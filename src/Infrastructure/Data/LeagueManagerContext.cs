@@ -1,15 +1,16 @@
-using Entities.Entities;
+using Application.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
 public class LeagueManagerContext : DbContext
 {
-    private string _DbPath;
-    public LeagueManagerContext()
+    public LeagueManagerContext(DbContextOptions<LeagueManagerContext> options) : base(options)
     {
-        _DbPath = System.IO.Path.Join(AppDomain.CurrentDomain.BaseDirectory, "league-manager.db");
     }
+    
+    public LeagueManagerContext() : base(new  DbContextOptions<LeagueManagerContext>()) { }
+
     public DbSet<GameDay> GameDays { get; set; }
     public DbSet<League>? Leagues { get; set; }
     public DbSet<Match>? Matches { get; set; }
@@ -17,7 +18,11 @@ public class LeagueManagerContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite($"Data Source={_DbPath}");
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlite($"Data Source={"leaguemanager.db"}");
+        }
+        
         base.OnConfiguring(optionsBuilder);
     }
 }

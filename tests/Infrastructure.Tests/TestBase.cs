@@ -1,3 +1,4 @@
+using Application.Entities;
 using Entities.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

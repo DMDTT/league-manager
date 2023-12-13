@@ -1,4 +1,4 @@
-namespace Entities.Entities;
+namespace Application.Entities;
 
 public class Team
 {
