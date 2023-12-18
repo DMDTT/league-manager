@@ -1,24 +1,17 @@
-using Application.Entities;
-using Entities.CQRS.Queries;
 using Entities.Services;
 using MediatR;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace RazorApp.Pages.League;
 
-public class Table : PageModel
+public class Table : LeagueBase
 {
-    private readonly ISender _Sender;
-
-    public Table(ISender sender)
+    public Table(ISender sender) : base(sender)
     {
-        _Sender = sender;
     }
 
-    public Entities.Entities.Table TableResult { get; set; }
-    public async Task OnGet(int leagueId, CancellationToken cancellationToken)
+    
+    public async Task OnGet(int leagueId, int? gameday, CancellationToken cancellationToken)
     {
-        var league = await _Sender.Send(new LeagueGetByIdQuery(leagueId), cancellationToken);
-        TableResult = new TableCalculator().Get(league, league.GameDays.Count);
+        var league = await GetLeague(leagueId, gameday, cancellationToken);
     }
 }

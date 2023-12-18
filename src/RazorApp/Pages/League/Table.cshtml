@@ -2,7 +2,11 @@
 @model RazorApp.Pages.League.Table
 
 <div class="text-center">
-    <h1 class="display-4">Ligen - Tabelle</h1>
+    <h1 class="display-4">Tabelle</h1>
+    @{
+        ViewData[Consts.LeagueSection] = @Consts.LeagueSectionTable;
+    }
+    <partial name="_PartialLeagueHeader" view-data="ViewData"/>
     <div class="container">
         <table class="table">
             <thead>
@@ -21,7 +25,7 @@
             <tbody>
             @foreach (var row in @Model.TableResult.Teams)
             {
-                <tr>
+                <tr class="@(Model.TableResult.Teams.IndexOf(row) + 1 == 1 ? "bg-success" : "")">
                     <th scope="row">@(Model.TableResult.Teams.IndexOf(row) + 1)</th>
                     <td>@row.Team.Code</td>
                     <td>@row.Points</td>
@@ -34,6 +38,6 @@
                 </tr>
             }
         </table>
-
     </div>
-</div>
+    <partial name="_PartialLeagueFooter" view-data="ViewData"/>
+    </div>
