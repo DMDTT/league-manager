@@ -101,20 +101,20 @@ public class TableCalculatorTest
 
         gameDay2.Matches.Add(new Match()
         {
-            Home = madrid,
-            Away = valencia,
+            Home = valencia,
+            Away = barcelona,
             GameDay = gameDay2,
-            GoalsHome = 2,
-            GoalsAway = 0
+            GoalsHome = 0,
+            GoalsAway = 3
         });
 
         gameDay2.Matches.Add(new Match()
         {
             Home = villareal,
-            Away = barcelona,
+            Away = madrid,
             GameDay = gameDay2,
             GoalsHome = 1,
-            GoalsAway = 3
+            GoalsAway = 1
         });
 
         GameDay gameDay3 = new GameDay()
@@ -125,19 +125,19 @@ public class TableCalculatorTest
 
         gameDay3.Matches.Add(new Match()
         {
-            Home = valencia,
-            Away = barcelona,
+            Home = madrid,
+            Away = valencia,
             GameDay = gameDay3,
-            GoalsHome = 0,
-            GoalsAway = 3
+            GoalsHome = 2,
+            GoalsAway = 0
         });
 
         gameDay3.Matches.Add(new Match()
         {
-            Home = madrid,
+            Home = barcelona,
             Away = villareal,
             GameDay = gameDay3,
-            GoalsHome = 1,
+            GoalsHome = 3,
             GoalsAway = 1
         });
 
@@ -173,20 +173,20 @@ public class TableCalculatorTest
 
         gameDay5.Matches.Add(new Match()
         {
-            Home = valencia,
-            Away = madrid,
+            Home = barcelona,
+            Away = valencia,
             GameDay = gameDay5,
-            GoalsHome = 1,
-            GoalsAway = 4
+            GoalsHome = 0,
+            GoalsAway = 3
         });
 
         gameDay5.Matches.Add(new Match()
         {
-            Home = barcelona,
+            Home = madrid,
             Away = villareal,
             GameDay = gameDay5,
-            GoalsHome = 5,
-            GoalsAway = 3
+            GoalsHome = 4,
+            GoalsAway = 0
         });
 
         GameDay gameDay6 = new GameDay()
@@ -197,20 +197,20 @@ public class TableCalculatorTest
 
         gameDay6.Matches.Add(new Match()
         {
-            Home = barcelona,
-            Away = valencia,
+            Home = valencia,
+            Away = madrid,
             GameDay = gameDay6,
-            GoalsHome = 0,
-            GoalsAway = 3
+            GoalsHome = 1,
+            GoalsAway = 4
         });
 
         gameDay6.Matches.Add(new Match()
         {
-            Home = villareal,
-            Away = madrid,
+            Home = barcelona,
+            Away = villareal,
             GameDay = gameDay6,
-            GoalsHome = 0,
-            GoalsAway = 4
+            GoalsHome = 5,
+            GoalsAway = 3
         });
 
         league.GameDays?.Add(gameDay1);

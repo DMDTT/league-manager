@@ -1,5 +1,4 @@
 using Application.Entities;
-using Entities.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +34,7 @@ public abstract class TestBase
             Code = "Villareal",
         };
 
-        var league = new League();
+        var league = new League() { Title = "Title" };
         league.Teams.Add(barcelona);
         league.Teams.Add(madrid);
         league.Teams.Add(valencia);
