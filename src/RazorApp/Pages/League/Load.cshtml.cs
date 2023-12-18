@@ -2,13 +2,13 @@ using Entities.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace RazorApp.Pages.League.Load;
+namespace RazorApp.Pages.League;
 
-public class Index : PageModel
+public class Load : PageModel
 {
     private readonly ISender _Sender;
 
-    public Index(ISender sender)
+    public Load(ISender sender)
     {
         _Sender = sender;
     }

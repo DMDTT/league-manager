@@ -21,8 +21,10 @@ public class Index : PageModel
     {
     }
 
-    public void OnPost()
+    public async Task<IActionResult> OnPost()
     {
-        _Sender.Send(new LeagueAddCommand(Title, TeamCount));
+        var result = await _Sender.Send(new LeagueAddCommand(Title, TeamCount));
+        //return RedirectToPage("/leagues/display", new { leagueId = result });
+        return RedirectToPage("/leagues/{leagueId:int}/display", new { leagueId = result });
     }
 }

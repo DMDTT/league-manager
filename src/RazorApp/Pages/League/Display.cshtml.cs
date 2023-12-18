@@ -1,25 +1,25 @@
 using Entities.CQRS.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace RazorApp.Pages.League.Display;
+namespace RazorApp.Pages.League;
 
-public class Index : PageModel
+public class Display : PageModel
 {
     private readonly ISender _Sender;
-
-    public Index(ISender sender)
+    
+    public Display(ISender sender)
     {
         _Sender = sender;
     }
-
-    [BindProperty] public string Title { get; set; }
-    [BindProperty] public int TeamCount { get; set; }
     
+    public string Title { get; set; }
+    public int TeamCount { get; set; }
+
     public async Task OnGet(int leagueId, CancellationToken cancellationToken)
     {
         var league = await _Sender.Send(new LeagueGetByIdQuery(leagueId), cancellationToken);
         Title = league.Title;
+        TeamCount = league.Teams.Count;
     }
 }

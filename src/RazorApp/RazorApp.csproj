@@ -14,4 +14,9 @@
       <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\League\Load\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\League\Display\Index.cshtml" />
+    </ItemGroup>
+
 </Project>

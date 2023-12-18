@@ -1,0 +1,39 @@
+@page "/leagues/{leagueId}/table"
+@model RazorApp.Pages.League.Table
+
+<div class="text-center">
+    <h1 class="display-4">Ligen - Tabelle</h1>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Team</th>
+                <th scope="col">Pkt.</th>
+                <th scope="col">T</th>
+                <th scope="col">GT</th>
+                <th scope="col">+/-</th>
+                <th scope="col">G</th>
+                <th scope="col">D</th>
+                <th scope="col">L</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in @Model.TableResult.Teams)
+            {
+                <tr>
+                    <th scope="row">@(Model.TableResult.Teams.IndexOf(row) + 1)</th>
+                    <td>@row.Team.Code</td>
+                    <td>@row.Points</td>
+                    <td>@row.Goals</td>
+                    <td>@row.GoalsAgainst</td>
+                    <td>@(row.Goals - row.GoalsAgainst)</td>
+                    <td>@row.Wins</td>
+                    <td>@row.Draws</td>
+                    <td>@row.Losses</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>

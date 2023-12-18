@@ -11,6 +11,10 @@ public class LeagueGetByIdQueryHandler(LeagueManagerContext leagueManagerContext
 {
     public Task<League?> Handle(LeagueGetByIdQuery request, CancellationToken cancellationToken)
     {
-        return leagueManagerContext.Leagues!.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken: cancellationToken);
+        return leagueManagerContext.Leagues!
+            .Include(x => x.GameDays).ThenInclude(x => x.Matches).ThenInclude(x => x.Home)
+            .Include(x => x.GameDays).ThenInclude(x => x.Matches).ThenInclude(x => x.Away)
+            .Where(x => x.Id == request.Id)
+            .SingleOrDefaultAsync(cancellationToken: cancellationToken);
     }
 }
