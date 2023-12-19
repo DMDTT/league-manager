@@ -25,7 +25,7 @@
             @foreach (var row in @Model.Matches)
             {
                 <tr>
-                        <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.Home.Code</td>
+                    <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.Home.Code</td>
                     <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")">@row.Away.Code</td>
                     <td>
                         <form method="post">
@@ -41,18 +41,17 @@
                     </td>
                     <td>
                         <form method="post">
-                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId" />
-                            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId" />
-                            <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay" />
-                            <input type="hidden" value="@row.Id" asp-for="MatchId" />
-                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId" />
+                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId"/>
+                            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId"/>
+                            <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay"/>
+                            <input type="hidden" value="@row.Id" asp-for="MatchId"/>
+                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId"/>
                             <button type="submit" name="action" value="@GameDay.GoalAction.Plus" class="btn-xs btn-primary">+</button>
                             <b>@row.GoalsAway</b>
                             <button type="submit" name="action" value="@GameDay.GoalAction.Minus" class="btn-xs btn-primary">-</button>
                         </form>
                     </td>
                 </tr>
-
             }
         </table>
     </div>
