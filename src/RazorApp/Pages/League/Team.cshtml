@@ -1,0 +1,30 @@
+@page "/leagues/{leagueId}/teams/{teamId}"
+@model RazorApp.Pages.League.Team
+
+<div class="text-center">
+    <h1 class="display-4">@Model.TeamCode | @Model.TeamId</h1>
+    @{
+        ViewData[Consts.LeagueSection] = @Consts.LeagueSectionGameDay;
+    }
+    <partial name="_PartialLeagueHeader" view-data="ViewData"/>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Heim</th>
+                    <th scope="col">Auswärts</th>
+                    <th scope="col">Ergebnis</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in @Model.Matches)
+            {
+                <tr>
+                    <td class="@(row.IdHome == @Model.TeamId ? "bold-cell" : "")">@row.CodeHome</td>
+                    <td class="@(row.IdAway == @Model.TeamId ? "bold-cell" : "")">@row.CodeAway</td>
+                    <td>@row.GoalsHome - @row.GoalsAway</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

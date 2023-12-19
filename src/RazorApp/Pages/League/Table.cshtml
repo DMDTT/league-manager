@@ -27,7 +27,7 @@
             {
                 <tr class="@(Model.TableResult.Teams.IndexOf(row) + 1 == 1 ? "bg-success" : "")">
                     <th scope="row">@(Model.TableResult.Teams.IndexOf(row) + 1)</th>
-                    <td>@row.TeamCode</td>
+                    <td><a asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a></td>
                     <td>@row.Points</td>
                     <td>@row.Goals</td>
                     <td>@row.GoalsAgainst</td>
@@ -40,4 +40,4 @@
         </table>
     </div>
     <partial name="_PartialLeagueFooter" view-data="ViewData"/>
-    </div>
+</div>
