@@ -15,6 +15,7 @@ public class LeagueGetByIdQueryHandler(LeagueManagerContext leagueManagerContext
             .Include(x => x.GameDays).ThenInclude(x => x.Matches).ThenInclude(x => x.Home)
             .Include(x => x.GameDays).ThenInclude(x => x.Matches).ThenInclude(x => x.Away)
             .Include(mainEntity => mainEntity.GameDays)
+            .Include(x => x.Teams)
             .Where(x => x.Id == request.Id)
             .OrderBy(mainEntity => mainEntity.Id) // Order main entities if needed
             .Select(mainEntity => new League
@@ -24,7 +25,8 @@ public class LeagueGetByIdQueryHandler(LeagueManagerContext leagueManagerContext
                 // ... copy other properties as needed
 
                 // Order the GameDays collection within each League
-                GameDays = mainEntity.GameDays.OrderBy(subEntity => subEntity.Id).ToList()
+                GameDays = mainEntity.GameDays.OrderBy(subEntity => subEntity.Id).ToList(),
+                Teams = mainEntity.Teams.OrderBy(subEntity => subEntity.Code).ToList(),
             })
             .SingleOrDefaultAsync(cancellationToken: cancellationToken);
         return league;

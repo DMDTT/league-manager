@@ -3,28 +3,19 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace RazorApp.Pages.League.Add;
+namespace RazorApp.Pages.League;
 
-public class Index : PageModel
+public class Add : LeagueBase
 {
-    private readonly ISender _Sender;
-
-    public Index(ISender sender)
+    public Add(ISender sender) : base(sender)
     {
-        _Sender = sender;
     }
-
     [BindProperty] public string Title { get; set; }
     [BindProperty] public int TeamCount { get; set; }
-
-    public void OnGet()
-    {
-    }
-
     public async Task<IActionResult> OnPost()
     {
-        var result = await _Sender.Send(new LeagueAddCommand(Title, TeamCount));
+        var result = await Sender.Send(new LeagueAddCommand(Title, TeamCount));
         //return RedirectToPage("/leagues/display", new { leagueId = result });
-        return RedirectToPage("/leagues/{leagueId:int}/display", new { leagueId = result });
+        return RedirectToPage("/League/AddTeams", new { leagueId = result });
     }
 }

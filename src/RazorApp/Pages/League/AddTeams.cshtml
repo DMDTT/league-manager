@@ -1,0 +1,33 @@
+@page "/leagues/{leagueId}/addTeams"
+@model RazorApp.Pages.League.AddTeams
+
+<div class="text-center">
+    <h1 class="display-4">Übersicht</h1>
+    @{
+        ViewData[Consts.LeagueSection] = @Consts.LeagueSectionGameDay;
+    }
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Mannschaften</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in @Model.Teams.OrderBy(x => x.TeamCode))
+            {
+                <tr>
+                    <td><a class="text-dark" asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a></td>
+                </tr>
+            }
+        </table>
+        <form method="post">
+            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId"/>
+            <div class="form-group">
+                <label for="title">Mannschaft</label>
+                <input asp-for="NewTeam" type="text" class="form-control" id="title" aria-describedby="Title of league" placeholder="Titel eingeben">
+            </div>
+            <button type="submit" class="btn btn-primary">hinzufügen</button>
+        </form>
+    </div>
+</div>

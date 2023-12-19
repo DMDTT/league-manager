@@ -4,6 +4,10 @@ namespace RazorApp.Model;
 
 public class Team(TeamContainer source)
 {
+    public Team(Application.Entities.Team source) : this(new TeamContainer() { Team = source })
+    {
+    }
+    
     public int Goals { get; set; } = source.Goals;
     public int GoalsAgainst { get; set; } = source.GoalsAgainst;
     public int Points { get; set; } = source.Points;

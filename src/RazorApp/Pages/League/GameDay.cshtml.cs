@@ -37,7 +37,6 @@ public class GameDay : LeagueBase
             case GoalAction.Minus:
                 await Sender.Send(new MatchGoalMinusCommand(leagueId, selectedGameDay, matchId, teamId), cancellationToken);
                 break;
-
         }
 
         return RedirectToPage("/League/GameDay", new { leagueId = leagueId, gameDay = selectedGameDay }); // Redirect to a different page after successful upload
