@@ -1,11 +1,21 @@
 using Application.Entities;
+using Entities.CQRS.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RazorApp.Pages.League;
 
 public class GameDay : LeagueBase
 {
     public List<Match> Matches { get; set; } = new List<Match>();
+
+    [BindProperty]
+    public int MatchId { get; set; }
+    [BindProperty]
+    public int TeamId { get; set; }
+
+    [BindProperty]
+    public GoalAction Action { get; set; }
 
     public GameDay(ISender sender) : base(sender)
     {
@@ -20,5 +30,27 @@ public class GameDay : LeagueBase
         {
             Matches.Add(match);
         }
+    }
+
+    public async Task<IActionResult> OnPost([FromForm] int leagueId, [FromForm] int selectedGameDay, [FromForm] int matchId, [FromForm] int teamId, CancellationToken cancellationToken)
+    {
+        switch (Action)
+        {
+            case GoalAction.Plus:
+                await Sender.Send(new MatchGoalPlusCommand(leagueId, selectedGameDay, matchId, teamId), cancellationToken);
+                break;
+            case GoalAction.Minus:
+                await Sender.Send(new MatchGoalMinusCommand(leagueId, selectedGameDay, matchId, teamId), cancellationToken);
+                break;
+
+        }
+
+        return RedirectToPage("/League/GameDay", new { leagueId = leagueId, gameDay = selectedGameDay }); // Redirect to a different page after successful upload
+    }
+
+    public enum GoalAction
+    {
+        Plus,
+        Minus
     }
 }

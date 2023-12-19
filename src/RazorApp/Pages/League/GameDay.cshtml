@@ -1,6 +1,10 @@
 @page "/leagues/{leagueId}/gameday"
 @model RazorApp.Pages.League.GameDay
-
+<style>
+    .bold-cell {
+        font-weight: bold;
+    }
+</style>
 <div class="text-center">
     <h1 class="display-4">Tabelle</h1>
     @{
@@ -8,35 +12,48 @@
     }
     <partial name="_PartialLeagueHeader" view-data="ViewData"/>
     <div class="container">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Heim</th>
-                <th scope="col">Auswärts</th>
-                <th scope="col">Tore (heim)</th>
-                <th scope="col">Tore (ausw.)</th>
-            </tr>
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Heim</th>
+                    <th scope="col">Auswärts</th>
+                    <th scope="col">Tore (heim)</th>
+                    <th scope="col">Tore (ausw.)</th>
+                </tr>
             </thead>
             <tbody>
-            <form>
             @foreach (var row in @Model.Matches)
             {
                 <tr>
-                    <th scope="row">@row.Home.Code</th>
-                    <td>@row.Away.Code</td>
+                        <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.Home.Code</td>
+                    <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")">@row.Away.Code</td>
                     <td>
-                        <button type="submit" name="action" value="plus" class="btn-xs btn-primary">+</button>
-                        <b>@row.GoalsHome</b>
-                        <button type="submit" name="action" value="minus" class="btn-xs btn-primary">-</button>
+                        <form method="post">
+                            <input type="hidden" value="@row.Home.Id" asp-for="TeamId"/>
+                            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId"/>
+                            <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay"/>
+                            <input type="hidden" value="@row.Id" asp-for="MatchId"/>
+                            <input type="hidden" value="@row.Home.Id" asp-for="TeamId"/>
+                            <button type="submit" name="action" value="@GameDay.GoalAction.Plus" class="btn-xs btn-primary">+</button>
+                            <b>@row.GoalsHome</b>
+                            <button type="submit" name="action" value="@GameDay.GoalAction.Minus" class="btn-xs btn-primary">-</button>
+                        </form>
                     </td>
                     <td>
-                        <button type="submit" name="action" value="plus" class="btn-xs btn-primary">+</button>
-                        @row.GoalsAway
-                        <button type="submit" name="action" value="minus" class="btn-xs btn-primary">-</button>
+                        <form method="post">
+                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId" />
+                            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId" />
+                            <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay" />
+                            <input type="hidden" value="@row.Id" asp-for="MatchId" />
+                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId" />
+                            <button type="submit" name="action" value="@GameDay.GoalAction.Plus" class="btn-xs btn-primary">+</button>
+                            <b>@row.GoalsAway</b>
+                            <button type="submit" name="action" value="@GameDay.GoalAction.Minus" class="btn-xs btn-primary">-</button>
+                        </form>
                     </td>
                 </tr>
+
             }
-            </form>
         </table>
     </div>
     <partial name="_PartialLeagueFooter" view-data="ViewData"/>

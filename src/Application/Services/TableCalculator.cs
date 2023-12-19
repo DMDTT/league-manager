@@ -48,6 +48,7 @@ public class TableCalculator
 
         positions = positions.OrderByDescending(x => x.Value.Points)
             .ThenByDescending(x => x.Value.Goals)
+            .ThenBy(x => x.Value.GoalsAgainst)
             .ThenBy(x => x.Value.Goals - x.Value.GoalsAgainst)
             .ToDictionary();
 
