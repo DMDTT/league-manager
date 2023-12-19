@@ -11,6 +11,7 @@
         <table class="table table-striped">
             <thead class="thead-light">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Heim</th>
                     <th scope="col">Auswärts</th>
                     <th scope="col">Ergebnis</th>
@@ -20,6 +21,7 @@
             @foreach (var row in @Model.Matches)
             {
                 <tr>
+                    <td>@(Model.Matches.IndexOf(row) + 1)</td>
                     <td class="@(row.IdHome == @Model.TeamId ? "bold-cell" : "")">@row.CodeHome</td>
                     <td class="@(row.IdAway == @Model.TeamId ? "bold-cell" : "")">@row.CodeAway</td>
                     <td>@row.GoalsHome - @row.GoalsAway</td>

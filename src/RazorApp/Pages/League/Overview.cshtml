@@ -1,0 +1,26 @@
+@page "/leagues/{leagueId}/display"
+@model RazorApp.Pages.League.Overview
+
+<div class="text-center">
+    <h1 class="display-4">Übersicht</h1>
+    @{
+        ViewData[Consts.LeagueSection] = @Consts.LeagueSectionGameDay;
+    }
+    <partial name="_PartialLeagueHeader" view-data="ViewData"/>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Mannschaft</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in @Model.TableResult.Teams.OrderBy(x => x.TeamCode))
+            {
+                <tr>
+                    <td><a asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

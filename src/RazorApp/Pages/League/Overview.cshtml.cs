@@ -2,9 +2,9 @@ using MediatR;
 
 namespace RazorApp.Pages.League;
 
-public class Display : LeagueBase
+public class Overview : LeagueBase
 {
-    public Display(ISender sender) : base(sender)
+    public Overview(ISender sender) : base(sender)
     {
     }
     
