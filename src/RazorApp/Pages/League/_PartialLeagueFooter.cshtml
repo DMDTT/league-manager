@@ -6,7 +6,6 @@
             <li class="nav-item">
                 <a class="nav-link text-dark @(@ViewData[Consts.SelectedGameDay] as int? == i ? "active" : "")" asp-page="/League/@ViewData[Consts.LeagueSection]" 
                    asp-route-leagueId="@ViewData[Consts.LeagueId]"
-                   asp-route-leagueId="@ViewData[Consts.SelectedGameDay]"
                    asp-route-gameDay="@i">@i</a>
             </li>
         }

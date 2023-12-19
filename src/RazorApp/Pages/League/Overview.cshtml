@@ -18,7 +18,7 @@
             @foreach (var row in @Model.TableResult.Teams.OrderBy(x => x.TeamCode))
             {
                 <tr>
-                    <td><a asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a></td>
+                    <td><a class="text-dark" asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a></td>
                 </tr>
             }
         </table>

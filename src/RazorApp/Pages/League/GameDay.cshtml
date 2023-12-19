@@ -21,8 +21,8 @@
             @foreach (var row in @Model.Matches)
             {
                 <tr>
-                    <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.CodeHome</td>
-                    <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")">@row.CodeAway</td>
+                    <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")"><a class="text-dark" asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.IdHome">@row.CodeHome</a></td>
+                    <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")"><a class="text-dark" asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.IdAway">@row.CodeAway</a></td>
                     <td>
                         @{
                             var modelHome = new PartialGameDayForm

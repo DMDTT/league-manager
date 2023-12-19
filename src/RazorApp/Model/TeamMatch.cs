@@ -12,6 +12,8 @@ public class TeamMatch
         IdAway = match.Away.Id;
         CodeAway = match.Away.Code;
         GoalsAway = match.GoalsAway;
+
+        GameDay = match.GameDay.Day;
     }
 
     public int Id { get; set; }
@@ -21,4 +23,6 @@ public class TeamMatch
     public int IdAway { get; set; }
     public string CodeAway { get; set; }
     public int GoalsAway { get; set; }
+    
+    public int GameDay { get; set; }
 }

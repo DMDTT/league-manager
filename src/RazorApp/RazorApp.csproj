@@ -18,6 +18,7 @@
       <_ContentIncludedByDefault Remove="Pages\League\Load\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\League\Display\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\League\Teams\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\League\Add\Index.cshtml" />
     </ItemGroup>
 
 </Project>

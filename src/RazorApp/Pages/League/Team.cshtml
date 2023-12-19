@@ -21,7 +21,11 @@
             @foreach (var row in @Model.Matches)
             {
                 <tr>
-                    <td>@(Model.Matches.IndexOf(row) + 1)</td>
+                    <td>
+                        <a class="nav-link text-dark" asp-page="/League/@ViewData[Consts.LeagueSection]" 
+                                           asp-route-leagueId="@ViewData[Consts.LeagueId]"
+                                           asp-route-gameDay="@row.GameDay">@row.GameDay</a>
+                    </td>
                     <td class="@(row.IdHome == @Model.TeamId ? "bold-cell" : "")">@row.CodeHome</td>
                     <td class="@(row.IdAway == @Model.TeamId ? "bold-cell" : "")">@row.CodeAway</td>
                     <td>@row.GoalsHome - @row.GoalsAway</td>
