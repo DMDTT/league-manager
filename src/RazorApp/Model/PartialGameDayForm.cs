@@ -1,6 +1,6 @@
 ﻿namespace RazorApp.Model;
 
-public class PartialGameDayFormView
+public class PartialGameDayForm
 {
     public int TeamId { get; set; }
     public int LeagueId { get; set; }

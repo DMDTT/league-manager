@@ -1,18 +1,13 @@
-using Application.Entities;
 using Entities.CQRS.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using RazorApp.Model;
 
 namespace RazorApp.Pages.League;
 
 public class GameDay : LeagueBase
 {
     public List<Match> Matches { get; set; } = new List<Match>();
-
-    [BindProperty]
-    public int MatchId { get; set; }
-    [BindProperty]
-    public int TeamId { get; set; }
 
     [BindProperty]
     public GoalAction Action { get; set; }
@@ -26,9 +21,9 @@ public class GameDay : LeagueBase
         var league = await GetLeague(leagueId, gameDay, cancellationToken);
         var gameday = league.GameDays.FirstOrDefault(x => x.Day == gameDay);
         gameday ??= gameday ?? league.GameDays.LastOrDefault();
-        foreach (var match in gameday?.Matches ?? new List<Match>())
+        foreach (var match in gameday?.Matches ?? new List<Application.Entities.Match>())
         {
-            Matches.Add(match);
+            Matches.Add(new Match(match));
         }
     }
 

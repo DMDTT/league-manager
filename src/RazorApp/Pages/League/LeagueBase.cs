@@ -2,6 +2,7 @@ using Entities.CQRS.Queries;
 using Entities.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RazorApp.Model;
 
 namespace RazorApp.Pages.League;
 
@@ -20,7 +21,7 @@ public class LeagueBase : PageModel
     
     public int? SelectedGameDay { get; set; }
     
-    public Entities.Entities.Table TableResult { get; set; }
+    public TableResult TableResult { get; set; }
 
     public List<int> GameDays { get; set; } = new List<int>();
 
@@ -34,7 +35,7 @@ public class LeagueBase : PageModel
         }
         
         LeagueId = leagueId;
-        TableResult = new TableCalculator().Get(league, gameday ?? league.GameDays.Count);
+        TableResult = new TableResult(new TableCalculator().Get(league, gameday ?? league.GameDays.Count));
         SelectedGameDay = gameday ?? league.GameDays.Count;
         
         ViewData[Consts.LeagueId] = LeagueId;

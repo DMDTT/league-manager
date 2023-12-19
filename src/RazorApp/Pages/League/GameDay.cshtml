@@ -26,13 +26,13 @@
             @foreach (var row in @Model.Matches)
             {
                 <tr>
-                    <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.Home.Code</td>
-                    <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")">@row.Away.Code</td>
+                    <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.CodeHome</td>
+                    <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")">@row.CodeAway</td>
                     <td>
                         @{
-                            var modelHome = new PartialGameDayFormView
+                            var modelHome = new PartialGameDayForm
                             {
-                                TeamId = @row.Home.Id,
+                                TeamId = @row.IdHome,
                                 LeagueId = @Model.LeagueId,
                                 SelectedGameDay = @Model.SelectedGameDay,
                                 MatchId = @row.Id,
@@ -43,9 +43,9 @@
                     </td>
                     <td>
                         @{
-                            var modelAway = new PartialGameDayFormView
+                            var modelAway = new PartialGameDayForm
                             {
-                                TeamId = @row.Away.Id,
+                                TeamId = @row.IdAway,
                                 LeagueId = @Model.LeagueId,
                                 SelectedGameDay = @Model.SelectedGameDay,
                                 MatchId = @row.Id,
