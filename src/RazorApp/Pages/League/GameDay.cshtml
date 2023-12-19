@@ -1,4 +1,5 @@
 @page "/leagues/{leagueId}/gameday"
+@using RazorApp.Model
 @model RazorApp.Pages.League.GameDay
 <style>
     .bold-cell {
@@ -28,28 +29,30 @@
                     <td scope="row" class="@(row.GoalsHome > row.GoalsAway ? "bold-cell" : "")">@row.Home.Code</td>
                     <td class="@(row.GoalsHome < row.GoalsAway ? "bold-cell" : "")">@row.Away.Code</td>
                     <td>
-                        <form method="post">
-                            <input type="hidden" value="@row.Home.Id" asp-for="TeamId"/>
-                            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId"/>
-                            <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay"/>
-                            <input type="hidden" value="@row.Id" asp-for="MatchId"/>
-                            <input type="hidden" value="@row.Home.Id" asp-for="TeamId"/>
-                            <button type="submit" name="action" value="@GameDay.GoalAction.Plus" class="btn-xs btn-primary">+</button>
-                            <b>@row.GoalsHome</b>
-                            <button type="submit" name="action" value="@GameDay.GoalAction.Minus" class="btn-xs btn-primary">-</button>
-                        </form>
+                        @{
+                            var modelHome = new PartialGameDayFormView
+                            {
+                                TeamId = @row.Home.Id,
+                                LeagueId = @Model.LeagueId,
+                                SelectedGameDay = @Model.SelectedGameDay,
+                                MatchId = @row.Id,
+                                Goals = @row.GoalsHome,
+                            };
+                        }
+                            <partial name="_PartialGameDayForm" model="modelHome" />
                     </td>
                     <td>
-                        <form method="post">
-                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId"/>
-                            <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId"/>
-                            <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay"/>
-                            <input type="hidden" value="@row.Id" asp-for="MatchId"/>
-                            <input type="hidden" value="@row.Away.Id" asp-for="TeamId"/>
-                            <button type="submit" name="action" value="@GameDay.GoalAction.Plus" class="btn-xs btn-primary">+</button>
-                            <b>@row.GoalsAway</b>
-                            <button type="submit" name="action" value="@GameDay.GoalAction.Minus" class="btn-xs btn-primary">-</button>
-                        </form>
+                        @{
+                            var modelAway = new PartialGameDayFormView
+                            {
+                                TeamId = @row.Away.Id,
+                                LeagueId = @Model.LeagueId,
+                                SelectedGameDay = @Model.SelectedGameDay,
+                                MatchId = @row.Id,
+                                Goals = @row.GoalsAway,
+                            };
+                        }
+                            <partial name="_PartialGameDayForm" model="modelAway" />
                     </td>
                 </tr>
             }

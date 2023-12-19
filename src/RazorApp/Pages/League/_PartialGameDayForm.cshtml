@@ -1,0 +1,10 @@
+@model RazorApp.Model.PartialGameDayFormView
+<form method="post">
+    <input type="hidden" value="@Model.TeamId" asp-for="TeamId"/>
+    <input type="hidden" value="@Model.LeagueId" asp-for="LeagueId"/>
+    <input type="hidden" value="@Model.SelectedGameDay" asp-for="SelectedGameDay"/>
+    <input type="hidden" value="@Model.MatchId" asp-for="MatchId" />
+    <button type="submit" name="action" value="@GameDay.GoalAction.Plus" class="btn-xs btn-primary">+</button>
+    <b>@Model.Goals</b>
+    <button type="submit" name="action" value="@GameDay.GoalAction.Minus" class="btn-xs btn-primary">-</button>
+</form>
