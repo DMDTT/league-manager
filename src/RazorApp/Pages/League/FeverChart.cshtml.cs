@@ -12,6 +12,8 @@ public class FeverChart : LeagueBase
     
     public string TeamCode { get; set; }
     
+    public int TeamCount { get; set; }
+    
     public string FeverData { get; set; }
     public async Task OnGet(int leagueId, int? teamId, CancellationToken cancellationToken)
     {
@@ -25,6 +27,6 @@ public class FeverChart : LeagueBase
         }
 
         FeverData = $"{{\"labels\": {Newtonsoft.Json.JsonConvert.SerializeObject(GameDays)}, \"data\": {Newtonsoft.Json.JsonConvert.SerializeObject(position)}}}";
-
+        TeamCount = league.Teams.Count;
     }
 }

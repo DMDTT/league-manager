@@ -29,10 +29,29 @@
                     },
                     options: {
                         scales: {
-                            x: [{
+                            x: {
                                 type: 'linear',
-                                position: 'bottom'
-                            }]
+                                position: 'bottom',
+                                title: {
+                                    display: true,
+                                    text: 'Round',
+                                },
+                                 ticks: {
+                                     stepSize: 1,
+                                 }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Position in League Table',
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                },
+                                min: 1,
+                                max: @Model.TeamCount,
+                                reverse: true, // Reverse the Y-axis to show the top at the top
+                            }
                         }
                     }
                 });
