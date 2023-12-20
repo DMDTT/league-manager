@@ -1,0 +1,42 @@
+@page "/leagues/{leagueId}/teams/{teamId}/feverchart"
+@model RazorApp.Pages.League.FeverChart
+
+<script src="~/lib/chartjs/chart.js" ></script>
+<div class="text-center">
+    <h1 class="display-4">@Model.TeamCode | @Model.TeamId</h1>
+    @{
+        ViewData[Consts.LeagueSection] = @Consts.LeagueSectionGameDay;
+    }
+    <partial name="_PartialLeagueHeader" view-data="ViewData"/>
+    <div class="container">
+        <canvas id="feverChart" width="400" height="200"></canvas>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('feverChart').getContext('2d');
+                var feverData = @Html.Raw(Model.FeverData);
+        
+                var feverChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: feverData.labels,
+                        datasets: [{
+                            label: 'Pos',
+                            data: feverData.data,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: [{
+                                type: 'linear',
+                                position: 'bottom'
+                            }]
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

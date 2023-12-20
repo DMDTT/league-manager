@@ -21,4 +21,8 @@
       <_ContentIncludedByDefault Remove="Pages\League\Add\Index.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\chartjs\" />
+    </ItemGroup>
+
 </Project>
