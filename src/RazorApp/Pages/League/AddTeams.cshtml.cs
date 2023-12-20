@@ -14,6 +14,7 @@ public class AddTeams : LeagueBase
     public int TeamCount { get; set; }
     
     [BindProperty] public string NewTeam { get; set; }
+    [BindProperty] public int TeamIdToDelete { get; set; }
 
     public List<RazorApp.Model.Team> Teams { get; set; } = new List<Model.Team>();
     
@@ -37,6 +38,19 @@ public class AddTeams : LeagueBase
             Teams.Add(new RazorApp.Model.Team(team));
         }
         
+        Title = league.Title;
+        TeamCount = league.Teams.Count;
+    }
+
+    public async Task OnPostDelete([FromRoute]int leagueId, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new RemoveTeamFromLeagueCommand(TeamIdToDelete, leagueId));
+        var league = await GetLeague(leagueId, null, cancellationToken);
+        foreach (Application.Entities.Team team in league.Teams)
+        {
+            Teams.Add(new RazorApp.Model.Team(team));
+        }
+
         Title = league.Title;
         TeamCount = league.Teams.Count;
     }

@@ -83,8 +83,8 @@ public class L98ToLeague
         {
             TempTeam home = null;
             TempTeam away = null;
-            int goalsHome = 0;
-            int goalsAway = 0;
+            int? goalsHome = null;
+            int? goalsAway = null;
             System.Text.RegularExpressions.Match m = Regex.Match(content, $"TA{matchIndex}=(.*?)###");
             if (m.Success)
             {

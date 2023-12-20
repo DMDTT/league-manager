@@ -15,11 +15,11 @@ public class TableCalculator
                 var homeTeam = GetPosition(positions, gameDayMatch, x => x.Home);
                 var awayTeam = GetPosition(positions, gameDayMatch, x => x.Away);
 
-                homeTeam.Goals += gameDayMatch.GoalsHome;
-                homeTeam.GoalsAgainst += gameDayMatch.GoalsAway;
+                homeTeam.Goals += gameDayMatch.GoalsHome ?? 0;
+                homeTeam.GoalsAgainst += gameDayMatch.GoalsAway ?? 0;
                 
-                awayTeam.Goals += gameDayMatch.GoalsAway;
-                awayTeam.GoalsAgainst += gameDayMatch.GoalsHome;
+                awayTeam.Goals += gameDayMatch.GoalsAway ?? 0;
+                awayTeam.GoalsAgainst += gameDayMatch.GoalsHome ?? 0;
 
                 if (gameDayMatch.GoalsHome > gameDayMatch.GoalsAway)
                 {

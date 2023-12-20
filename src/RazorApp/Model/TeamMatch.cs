@@ -18,11 +18,11 @@ public class TeamMatch
 
     public int Id { get; set; }
     public int IdHome { get; set; }
-    public int GoalsHome { get; set; }
+    public int? GoalsHome { get; set; }
     public string CodeHome { get; set; }
     public int IdAway { get; set; }
     public string CodeAway { get; set; }
-    public int GoalsAway { get; set; }
+    public int? GoalsAway { get; set; }
     
     public int GameDay { get; set; }
 }

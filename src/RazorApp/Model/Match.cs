@@ -9,7 +9,7 @@ public class Match(Application.Entities.Match source)
     public string CodeHome { get; } = source.Home.Code;
     public int IdAway { get; } = source.Away.Id;
     public string CodeAway { get; } = source.Away.Code;
-    public int GoalsHome { get; } = source.GoalsHome;
-    public int GoalsAway { get; } = source.GoalsAway;
+    public int? GoalsHome { get; } = source.GoalsHome;
+    public int? GoalsAway { get; } = source.GoalsAway;
     public int GameDay { get; } = source.GameDay.Day;
 }

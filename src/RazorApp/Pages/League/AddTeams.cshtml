@@ -9,15 +9,24 @@
     <div class="container">
         <table class="table table-striped">
             <thead class="thead-light">
-            <tr>
+            <tr>7
                 <th scope="col">Mannschaften</th>
+                    <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             @foreach (var row in @Model.Teams.OrderBy(x => x.TeamCode))
             {
                 <tr>
-                    <td><a class="text-dark" asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a></td>
+                    <td>
+                        <a class="text-dark" asp-page="/League/Team" asp-route-leagueId="@Model.LeagueId" asp-route-teamId="@row.TeamId">@row.TeamCode</a>
+                    </td>
+                    <td>
+                        <form asp-page-handler="delete" method="post">
+                            <input type="hidden" asp-for="TeamIdToDelete" value="@row.TeamId" >
+                            <button class="btn btn-default">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             }
         </table>
