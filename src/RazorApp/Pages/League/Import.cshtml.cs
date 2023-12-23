@@ -33,7 +33,7 @@ public class Import : PageModel
 
             // Add your processing logic here
             int id = await _Sender.Send(new LeagueImportCommand(filePath));
-            return RedirectToPage("/League/Display", new { leagueId = id }); // Redirect to a different page after successful upload
+            return RedirectToPage("/League/Overview", new { leagueId = id }); // Redirect to a different page after successful upload
         }
 
         return Page(); // Stay on the same page if the file is not provided or is empty
